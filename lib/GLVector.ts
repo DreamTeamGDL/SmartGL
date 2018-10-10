@@ -1,6 +1,6 @@
 
-import IPoint from "./IPoint";
-import IBufferSettings from "./IBufferSettings";
+import IPoint from "./interfaces/IPoint";
+import IBufferSettings from "./interfaces/IBufferSettings";
 
 export default class GLVector {
 
