@@ -9,10 +9,10 @@ export default class Square extends AbstractPolygon {
 
     public constructor(center: Point4D, sideLength: number) {
         super();
-        this.points.push(new Point4D(center.x + sideLength, center.y + sideLength));
-        this.points.push(new Point4D(center.x + sideLength, center.y - sideLength));
-        this.points.push(new Point4D(center.x - sideLength, center.y + sideLength));
-        this.points.push(new Point4D(center.x - sideLength, center.y - sideLength));
+        this.points.push(new Point4D(center.x + sideLength / 2, center.y + sideLength / 2));
+        this.points.push(new Point4D(center.x + sideLength / 2, center.y - sideLength / 2));
+        this.points.push(new Point4D(center.x - sideLength / 2, center.y - sideLength / 2));
+        this.points.push(new Point4D(center.x - sideLength / 2, center.y + sideLength / 2));
         this.center = center;
         this.sideLength =  sideLength;
     }
