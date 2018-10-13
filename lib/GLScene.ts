@@ -1,5 +1,6 @@
 
 import GLVector from "./GLVector";
+import IDrawable from "./interfaces/IDrawable";
 
 export default abstract class GLScene {
 
@@ -7,6 +8,8 @@ export default abstract class GLScene {
 	protected canvas: HTMLCanvasElement;
 	protected renderingMode: number;
 	protected animate: boolean;
+
+	protected drawables: IDrawable[] = [];
 
 	public constructor(canvasId: string, animate: boolean) {
 		this.canvas = document.getElementById(canvasId) as HTMLCanvasElement;
@@ -35,7 +38,6 @@ export default abstract class GLScene {
 		this.gl.clearColor(0, 0, 0, 1);
 		this.gl.clear(this.gl.COLOR_BUFFER_BIT);
 		this.render();
-
 		if (this.animate) {
 			this.onUpdate();
 			requestAnimationFrame(this.launch);
@@ -46,7 +48,7 @@ export default abstract class GLScene {
 		requestAnimationFrame(this.launch);
 	}
 
-	protected draw(x: number, y: number, vectors: GLVector[], count: number = 3): void {
+	protected draw(vectors: GLVector[], count: number = 3, x: number = 0, y: number = 0): void {
 		this.gl.viewport(x, y, this.canvas.width, this.canvas.height);
 		for (let vector of vectors) this.drawVector(vector);
 		this.gl.drawArrays(this.renderingMode, 0, count);
@@ -76,6 +78,10 @@ export default abstract class GLScene {
 
 	}
 
-	protected abstract render(): void;
+	protected render() {
+		for (let drawable of this.drawables) {
+			this.draw(drawable.vectors, drawable.count);
+		}
+	}
 
 }

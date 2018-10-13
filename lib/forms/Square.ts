@@ -6,9 +6,11 @@ export default class Square extends AbstractPolygon {
 
     protected center: Point4D;
     protected sideLength: number;
+    private gl: WebGLRenderingContext;
 
-    public constructor(center: Point4D, sideLength: number) {
+    public constructor(gl: WebGLRenderingContext, center: Point4D, sideLength: number) {
         super();
+        this.gl = gl;
 		this.center = center;
 		this.sideLength = sideLength;
         this.points.push(this.calcPoint(true, true));
@@ -18,9 +20,9 @@ export default class Square extends AbstractPolygon {
 		this.colors = Array(4).fill(Point4D.White);
     }
 
-    public draw(gl: WebGLRenderingContext): GLVector[] {
-        const positions = new GLVector(gl, 4);
-        const colors = new GLVector(gl, 4);
+    public draw(): GLVector[] {
+        const positions = new GLVector(this.gl, 4);
+        const colors = new GLVector(this.gl, 4);
         positions
 			.addPoint(this.points[0])
         	.addPoint(this.points[1])
