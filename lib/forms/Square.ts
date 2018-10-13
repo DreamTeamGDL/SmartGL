@@ -26,7 +26,7 @@ export default class Square extends AbstractPolygon {
         	.addPoint(this.points[1])
         	.addPoint(this.points[2])
         	.addPoint(this.points[0])
-        	.addPoint(this.points[4])
+        	.addPoint(this.points[3])
         	.addPoint(this.points[2])
 			.attributeName = "aPosition";
         colors
@@ -34,7 +34,7 @@ export default class Square extends AbstractPolygon {
 			.addPoint(this.colors[1])
 			.addPoint(this.colors[2])
 			.addPoint(this.colors[0])
-			.addPoint(this.colors[4])
+			.addPoint(this.colors[3])
 			.addPoint(this.colors[2])
 			.attributeName = "aColor";
 		return [positions, colors];
