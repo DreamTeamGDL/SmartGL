@@ -26,16 +26,16 @@ export default abstract class AbstractPolygon implements IDrawable {
         return angle == this.round(2 * Math.PI);
     }
 
-    protected get vectors() {
+    public get vectors() {
     	return this.draw();
 	}
 
-	protected get count() {
+	public get count() {
     	return this.pointAmount();
 	}
 
-    public abstract draw(): GLVector[];
-    public abstract pointAmount(): number;
+    protected abstract draw(): GLVector[];
+    protected abstract pointAmount(): number;
 
     protected round(num: number): number {
         return Number(num.toFixed(this.precision));
