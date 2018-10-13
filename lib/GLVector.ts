@@ -1,15 +1,18 @@
 
 import IPoint from "./interfaces/IPoint";
 import IBufferSettings from "./interfaces/IBufferSettings";
+import {mat4} from "gl-matrix";
 
-export default class GLVector {
+export default class GLVector implements Iterable<IPoint> {
 
 	public readonly size: number;
 	public readonly program: WebGLProgram;
 
-	private attributeAddress: number = -1;
-	private readonly points: IPoint[];
 	private readonly gl: WebGLRenderingContext;
+
+	private points: IPoint[];
+	private transformMatrix: mat4 | null = null;
+	private attributeAddress: number = -1;
 	private bufferObj: WebGLBuffer | null = null;
 	private rawArray: Float32Array | null = null;
 	private bufferSettings: IBufferSettings[] = [];
@@ -24,12 +27,12 @@ export default class GLVector {
 
 	public constructor(
 		gl: WebGLRenderingContext,
-		size: number,
+		elementSize: number,
 		vertex: string = "shader-vs",
 		fragment: string = "shader-fs"
 	) {
 		this.gl = gl;
-		this.size = size;
+		this.size = elementSize;
 		this.points = [];
 
 		const vertexCodeElement = document.getElementById(vertex);
@@ -54,6 +57,13 @@ export default class GLVector {
 			this.bufferObj = this.initBuffer();
 		}
 		return this.bufferObj;
+	}
+
+	public get transform(): mat4 {
+		if (this.transformMatrix == null) {
+			this.transformMatrix = mat4.create();
+		}
+		return this.transformMatrix;
 	}
 
 	public get attribute(): number {
@@ -106,6 +116,10 @@ export default class GLVector {
 		this.gl.bindBuffer(this.gl.ARRAY_BUFFER, buffer);
 		this.updateBuffer();
 		return buffer;
+	}
+
+	public [Symbol.iterator](): Iterator<IPoint> {
+		return this.points.values();
 	}
 
 	private createShader(type: number, source: string): WebGLShader {

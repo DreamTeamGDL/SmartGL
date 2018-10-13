@@ -44,4 +44,8 @@ export default class Point4D implements IPoint {
 		return vec2.fromValues(this.x, this.y);
 	}
 
+	public static fromVec2(point: vec2) {
+		return new Point4D(point[0], point[1]);
+	}
+
 }

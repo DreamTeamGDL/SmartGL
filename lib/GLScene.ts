@@ -42,6 +42,10 @@ export default abstract class GLScene {
 		}
 	}
 
+	public nextFrame() {
+		requestAnimationFrame(this.launch);
+	}
+
 	protected draw(x: number, y: number, vectors: GLVector[], count: number = 3): void {
 		this.gl.viewport(x, y, this.canvas.width, this.canvas.height);
 		for (let vector of vectors) this.drawVector(vector);

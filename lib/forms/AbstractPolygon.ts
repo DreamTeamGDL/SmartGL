@@ -6,7 +6,6 @@ import GLVector from "../GLVector";
 export default abstract class AbstractPolygon implements IDrawable {
 
     protected points: Point4D[] = [];
-    protected modelMatrix: mat4 = mat4.create();
     private precision = 4;
 
     public isInside(center: Point4D | vec2): boolean {
@@ -28,9 +27,6 @@ export default abstract class AbstractPolygon implements IDrawable {
 
     public abstract draw(): GLVector[];
 
-    public transform(): mat4 {
-        return this.modelMatrix;
-    }
 
     protected round(num: number): number {
         return Number(num.toFixed(this.precision));
