@@ -9,16 +9,45 @@ export default class Square extends AbstractPolygon {
 
     public constructor(center: Point4D, sideLength: number) {
         super();
-        this.points.push(new Point4D(center.x + sideLength / 2, center.y + sideLength / 2));
-        this.points.push(new Point4D(center.x + sideLength / 2, center.y - sideLength / 2));
-        this.points.push(new Point4D(center.x - sideLength / 2, center.y - sideLength / 2));
-        this.points.push(new Point4D(center.x - sideLength / 2, center.y + sideLength / 2));
-        this.center = center;
-        this.sideLength =  sideLength;
+		this.center = center;
+		this.sideLength = sideLength;
+        this.points.push(this.calcPoint(true, true));
+		this.points.push(this.calcPoint(false, true));
+		this.points.push(this.calcPoint(false, false));
+		this.points.push(this.calcPoint(true, false));
+		this.colors = Array(4).fill(Point4D.White);
     }
 
-    public draw(): GLVector[] {
-        throw new Error("Method not implemented.");
+    public draw(gl: WebGLRenderingContext): GLVector[] {
+        const positions = new GLVector(gl, 4);
+        const colors = new GLVector(gl, 4);
+        positions
+			.addPoint(this.points[0])
+        	.addPoint(this.points[1])
+        	.addPoint(this.points[2])
+        	.addPoint(this.points[0])
+        	.addPoint(this.points[4])
+        	.addPoint(this.points[2])
+			.attributeName = "aPosition";
+        colors
+			.addPoint(this.colors[0])
+			.addPoint(this.colors[1])
+			.addPoint(this.colors[2])
+			.addPoint(this.colors[0])
+			.addPoint(this.colors[4])
+			.addPoint(this.colors[2])
+			.attributeName = "aColor";
+		return [positions, colors];
+    }
+
+    public pointAmount(): number {
+        return 6;
+    }
+
+    private calcPoint(isUp: boolean, isRight: boolean): Point4D {
+        const up = isUp ? 1 : -1;
+        const right = isRight ? 1 : -1;
+        return new Point4D(this.center.x + right * this.sideLength / 2, this.center.y + up * this.sideLength / 2);
     }
 
 }

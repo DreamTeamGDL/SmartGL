@@ -3,6 +3,12 @@ import { vec2 } from "gl-matrix";
 
 export default class Point4D implements IPoint {
 
+	public static readonly Red = new Point4D(1, 0, 0, 1);
+	public static readonly Green = new Point4D(0, 1, 0, 1);
+	public static readonly Blue = new Point4D(0, 0, 1, 1);
+	public static readonly White = new Point4D(1, 1, 1, 1);
+	public static readonly Black = new Point4D(0, 0, 0, 1);
+
 	private values: number[] = [];
 
 	public get x() : number {return this.values[0];}

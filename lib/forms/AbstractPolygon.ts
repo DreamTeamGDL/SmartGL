@@ -6,6 +6,7 @@ import GLVector from "../GLVector";
 export default abstract class AbstractPolygon implements IDrawable {
 
     protected points: Point4D[] = [];
+    protected colors: Point4D[] = [];
     private precision = 4;
 
     public isInside(center: Point4D | vec2): boolean {
@@ -25,8 +26,8 @@ export default abstract class AbstractPolygon implements IDrawable {
         return angle == this.round(2 * Math.PI);
     }
 
-    public abstract draw(): GLVector[];
-
+    public abstract draw(gl: WebGLRenderingContext): GLVector[];
+    public abstract pointAmount(): number;
 
     protected round(num: number): number {
         return Number(num.toFixed(this.precision));

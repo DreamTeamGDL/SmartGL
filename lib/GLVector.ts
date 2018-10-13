@@ -74,8 +74,9 @@ export default class GLVector implements Iterable<IPoint> {
 		this.attributeAddress = this.gl.getAttribLocation(this.program, name);
 	}
 
-	public addPoint(point: IPoint) {
+	public addPoint(point: IPoint): GLVector {
 		this.points.push(point);
+		return this;
 	}
 
 	public addBufferSetting(setting: IBufferSettings) {
