@@ -2,7 +2,7 @@
   "name": "smartgl",
   "version": "0.1.0",
   "description": "A library to handle WebGL",
-  "main": "index.js",
+  "main": "index.ts",
   "directories": {
     "lib": "lib"
   },
