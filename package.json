@@ -1,6 +1,6 @@
 {
   "name": "smartgl",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "description": "A library to handle WebGL",
   "main": "index.ts",
   "directories": {
