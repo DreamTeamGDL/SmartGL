@@ -23,11 +23,11 @@ export default class Triangle extends AbstractPolygon {
 	}
 
 	private setCorners(radius: number) {
-		let base = Math.PI / 2;
-		for (var i = 0; i < 3; i++) {
-			let angle = base * i * (2 * Math.PI / 3);
-			let x = radius * Math.cos(angle) + this.center.x;
-			let y = radius * Math.sin(angle) + this.center.y;
+		const base = Math.PI / 2;
+		for (let i = 0; i < 3; i++) {
+			let angle = base + i * (2 * Math.PI / 3);
+			const x = radius * Math.cos(angle) + this.center.x;
+			const y = radius * Math.sin(angle) + this.center.y;
 			this.points.push(new Point4D(x, y));
 		}
 	}
