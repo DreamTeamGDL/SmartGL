@@ -66,6 +66,10 @@ export default class GLVector implements Iterable<IPoint> {
 		return this.transformMatrix;
 	}
 
+	public set transform(matrix: mat4) {
+		this.transformMatrix = matrix;
+	}
+
 	public get attribute(): number {
 		return this.attributeAddress;
 	}

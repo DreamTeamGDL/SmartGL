@@ -1,5 +1,5 @@
 import Point4D from "../Point4D";
-import { vec2, mat4 } from "gl-matrix";
+import {mat4, vec2} from "gl-matrix";
 import IDrawable from "../interfaces/IDrawable";
 import GLVector from "../GLVector";
 
@@ -7,7 +7,9 @@ export default abstract class AbstractPolygon implements IDrawable {
 
     protected points: Point4D[] = [];
     protected colors: Point4D[] = [];
-    private precision = 4;
+    protected center = Point4D.Zero;
+    protected transform = mat4.create();
+    private readonly precision = 4;
 
     public isInside(center: Point4D | vec2): boolean {
         const point: vec2 = center instanceof Point4D ? center.asVec2() : center;
@@ -18,7 +20,6 @@ export default abstract class AbstractPolygon implements IDrawable {
             vec2.subtract(prevPoint, prevPoint, point);
             vec2.subtract(currPoint, currPoint, point);
             const vectorAngle = vec2.angle(prevPoint, currPoint);
-            console.log(`Angle: ${vectorAngle}`);
             angle += vectorAngle;
         }
         angle = this.round(angle);
@@ -40,5 +41,15 @@ export default abstract class AbstractPolygon implements IDrawable {
     protected round(num: number): number {
         return Number(num.toFixed(this.precision));
     }
+
+	protected setCorners(vertexCount: number, radius: number) {
+		const base = Math.PI / 2;
+		for (let i = 0; i < vertexCount; i++) {
+			let angle = base + i * (2 * Math.PI / vertexCount);
+			const x = radius * Math.cos(angle) + this.center.x;
+			const y = radius * Math.sin(angle) + this.center.y;
+			this.points.push(new Point4D(x, y));
+		}
+	}
 
 }

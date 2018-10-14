@@ -4,7 +4,6 @@ import Point4D from "../Point4D";
 
 export default class Square extends AbstractPolygon {
 
-    protected center: Point4D;
     protected sideLength: number;
     private gl: WebGLRenderingContext;
 
@@ -13,16 +12,14 @@ export default class Square extends AbstractPolygon {
         this.gl = gl;
 		this.center = center;
 		this.sideLength = sideLength;
-        this.points.push(this.calcPoint(true, true));
-		this.points.push(this.calcPoint(false, true));
-		this.points.push(this.calcPoint(false, false));
-		this.points.push(this.calcPoint(true, false));
+        this.setCorners(4, sideLength);
 		this.colors = Array(4).fill(Point4D.White);
     }
 
     public draw(): GLVector[] {
         const positions = new GLVector(this.gl, 4);
         const colors = new GLVector(this.gl, 4);
+        positions.transform = this.transform;
         positions
 			.addPoint(this.points[0])
         	.addPoint(this.points[1])
@@ -45,11 +42,4 @@ export default class Square extends AbstractPolygon {
     public pointAmount(): number {
         return 6;
     }
-
-    private calcPoint(isUp: boolean, isRight: boolean): Point4D {
-        const up = isUp ? 1 : -1;
-        const right = isRight ? 1 : -1;
-        return new Point4D(this.center.x + right * this.sideLength / 2, this.center.y + up * this.sideLength / 2);
-    }
-
 }

@@ -9,6 +9,8 @@ export default class Point4D implements IPoint {
 	public static readonly White = new Point4D(1, 1, 1, 1);
 	public static readonly Black = new Point4D(0, 0, 0, 1);
 
+	public static readonly Zero = new Point4D(0, 0);
+
 	private values: number[] = [];
 
 	public get x() : number {return this.values[0];}
