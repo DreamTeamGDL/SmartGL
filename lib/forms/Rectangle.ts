@@ -6,7 +6,7 @@ import Square from "./Square";
 export default class Rectangle extends Square {
 
 	public constructor(gl: WebGLRenderingContext, center: Point4D, ratio: number) {
-		super(gl, center, 0.5);
+		super(gl, center, 0.25);
 		this.scale(ratio, 1);
 	}
 }
