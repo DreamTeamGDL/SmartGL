@@ -11,7 +11,7 @@ export default class Trapezoid extends Rectangle {
 
     private shearPolygon(value: number){
         let shearMatrix = mat2.create();
-        shearMatrix[1] = value;
+        shearMatrix[2] = value;
 
         this.points = this.points.map(point => {
             let position = point.asVec2();
