@@ -6,10 +6,13 @@ import { vec2 } from "gl-matrix"
 export default class Trapezoid extends Rectangle {
     public constructor(gl: WebGLRenderingContext, center: Point4D, ratio: number, factor: number){
         super(gl, center, ratio);
+        this.center = center;
+        this.translate(-center.x, -center.y);
         this.shearPolygon(factor);
+		this.translate(center.x, center.y);
     }
 
-    private shearPolygon(value: number){
+    private shearPolygon(value: number) {
         let shearMatrix = mat2.create();
         shearMatrix[2] = value;
 
