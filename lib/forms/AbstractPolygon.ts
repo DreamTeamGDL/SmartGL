@@ -8,7 +8,18 @@ export default abstract class AbstractPolygon implements IDrawable {
 
     protected points: Point4D[] = [];
     protected colors: Point4D[] = [];
+
     protected center = Point4D.Zero;
+    protected angle = 0;
+
+    public get Center() {
+    	return this.center;
+	}
+
+	public get Angle() {
+    	return this.angle;
+	}
+
     private readonly precision = 4;
 
     public isInside(center: Point4D | vec2): boolean {
@@ -53,6 +64,14 @@ export default abstract class AbstractPolygon implements IDrawable {
 		}
 	}
 
+	public setColor(color: Point4D) {
+    	const count = this.colors.length;
+    	this.colors = [];
+    	for (let i = 0; i < count; i++) {
+    		this.colors.push(color);
+		}
+	}
+
 	public scale(x: number, y: number) {
 		const matrix = mat4.create();
 		mat4.scale(matrix, matrix, [x, y, 1]);
@@ -65,12 +84,14 @@ export default abstract class AbstractPolygon implements IDrawable {
 		mat4.rotate(matrix, matrix, angle, [0, 0, 1]);
 		this.transformPoints(matrix);
 		this.translate(this.center.x, this.center.y);
+		this.angle += angle;
 	}
 
 	public translate(x: number, y: number) {
 		const matrix = mat4.create();
 		mat4.translate(matrix, matrix, [x, y, 0]);
 		this.transformPoints(matrix);
+		this.center = new Point4D(this.center.x + x, this.center.y + y);
 	}
 
 	private transformPoints(matrix: mat4) {
