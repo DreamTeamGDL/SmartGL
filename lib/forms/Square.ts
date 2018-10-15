@@ -39,7 +39,7 @@ export default class Square extends AbstractPolygon {
 		return [positions, colors];
     }
 
-    public 	pointAmount(): number {
+    public pointAmount(): number {
         return 6;
     }
 }
