@@ -19,7 +19,6 @@ export default class Triangle extends AbstractPolygon {
 		const color = new GLVector(this.gl, 4);
 		position.attributeName = "aPosition";
 		color.attributeName = "aColor";
-		position.transform = this.transform;
 		this.points.forEach(p => position.addPoint(p));
 		this.colors.forEach(c => color.addPoint(c));
 		return [position, color];
