@@ -19,7 +19,6 @@ export default class Square extends AbstractPolygon {
     public draw(): GLVector[] {
         const positions = new GLVector(this.gl, 4);
         const colors = new GLVector(this.gl, 4);
-        positions.transform = this.transform;
         positions
 			.addPoint(this.points[0])
         	.addPoint(this.points[1])

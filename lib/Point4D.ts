@@ -1,5 +1,5 @@
 import IPoint from "./interfaces/IPoint";
-import { vec2 } from "gl-matrix";
+import {vec2, vec4} from "gl-matrix";
 
 export default class Point4D implements IPoint {
 
@@ -46,6 +46,14 @@ export default class Point4D implements IPoint {
 
 	public setValue(index: number, value: number) {
 		this.values[index] = value;
+	}
+
+	public asVec4(): vec4 {
+		return vec4.fromValues(this.x, this.y, this.z, this.rho);
+	}
+
+	public static fromVec4(point: vec4) {
+		return new Point4D(point[0], point[1], point[2], point[3]);
 	}
 
 	public asVec2(): vec2 {

@@ -1,5 +1,6 @@
+
 import Point4D from "../Point4D";
-import {mat4, vec2} from "gl-matrix";
+import {mat4, vec2, vec4} from "gl-matrix";
 import IDrawable from "../interfaces/IDrawable";
 import GLVector from "../GLVector";
 
@@ -8,7 +9,6 @@ export default abstract class AbstractPolygon implements IDrawable {
     protected points: Point4D[] = [];
     protected colors: Point4D[] = [];
     protected center = Point4D.Zero;
-    protected transform = mat4.create();
     private readonly precision = 4;
 
     public isInside(center: Point4D | vec2): boolean {
@@ -36,6 +36,7 @@ export default abstract class AbstractPolygon implements IDrawable {
 	}
 
     protected abstract draw(): GLVector[];
+
     protected abstract pointAmount(): number;
 
     protected round(num: number): number {
@@ -50,6 +51,34 @@ export default abstract class AbstractPolygon implements IDrawable {
 			const y = radius * Math.sin(angle) + this.center.y;
 			this.points.push(new Point4D(x, y));
 		}
+	}
+
+	protected scale(x: number, y: number) {
+		const matrix = mat4.create();
+		mat4.scale(matrix, matrix, [x, y, 1]);
+		this.transformPoints(matrix);
+	}
+
+	protected rotate(angle: number) {
+		const matrix = mat4.create();
+		mat4.rotate(matrix, matrix, angle, [0, 0, 1]);
+		this.transformPoints(matrix);
+	}
+
+	protected translate(x: number, y: number) {
+		const matrix = mat4.create();
+		mat4.translate(matrix, matrix, [x, y, 0]);
+		this.transformPoints(matrix);
+	}
+
+	private transformPoints(matrix: mat4) {
+		const transformed: Point4D[] = [];
+		for (let point of this.points) {
+			const vector = point.asVec4();
+			vec4.transformMat4(vector, vector, matrix);
+			transformed.push(Point4D.fromVec4(vector));
+		}
+		this.points = transformed;
 	}
 
 }
