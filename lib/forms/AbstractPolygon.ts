@@ -74,8 +74,11 @@ export default abstract class AbstractPolygon implements IDrawable {
 
 	public scale(x: number, y: number) {
 		const matrix = mat4.create();
+		const center = this.center;
+		this.translate(-center.x, -center.y);
 		mat4.scale(matrix, matrix, [x, y, 1]);
 		this.transformPoints(matrix);
+		this.translate(center.x, center.y);
 	}
 
 	public rotate(angle: number) {
