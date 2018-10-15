@@ -14,6 +14,7 @@ export default class Square extends AbstractPolygon {
 		this.sideLength = sideLength;
         this.setCorners(4, sideLength);
 		this.colors = Array(4).fill(Point4D.White);
+		this.rotate(Math.PI / 4);
     }
 
     public draw(): GLVector[] {
@@ -38,7 +39,7 @@ export default class Square extends AbstractPolygon {
 		return [positions, colors];
     }
 
-    public pointAmount(): number {
+    public 	pointAmount(): number {
         return 6;
     }
 }
