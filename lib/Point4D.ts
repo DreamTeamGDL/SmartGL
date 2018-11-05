@@ -33,7 +33,6 @@ export default class Point4D implements IPoint {
 		this.y  = y;
 		this.z = z;
 		this.rho = rho;
-		if (arguments.length == 3) this.z = 1;
 	}
 
 	public asArray(): number[] {
