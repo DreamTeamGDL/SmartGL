@@ -1,7 +1,6 @@
 import GLScene from "./lib/GLScene";
 import GLVector from "./lib/GLVector";
 import GLCamera from "./lib/GLCamera";
-import GLCamera from "./lib/GLCamera";
 import Point from "./lib/Point";
 import Point4D from "./lib/Point4D";
 import AbstractPolygon from "./lib/forms/AbstractPolygon";
