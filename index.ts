@@ -1,5 +1,7 @@
 import GLScene from "./lib/GLScene";
 import GLVector from "./lib/GLVector";
+import GLCamera from "./lib/GLCamera";
+import GLCamera from "./lib/GLCamera";
 import Point from "./lib/Point";
 import Point4D from "./lib/Point4D";
 import AbstractPolygon from "./lib/forms/AbstractPolygon";
@@ -15,6 +17,7 @@ import IPoint from "./lib/interfaces/IPoint";
 export {
     GLScene,
     GLVector,
+    GLCamera,
     Point,
     Point4D,
     AbstractPolygon,
