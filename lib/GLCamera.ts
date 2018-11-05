@@ -10,7 +10,7 @@ export default class GLCamera {
 		this.projection = this.defaultPerspective(aspectRatio);
 	}
 
-	public observe(model: mat4): mat4 {
+	public observe(model: mat4 = mat4.create()): mat4 {
 		const result = mat4.create();
 		mat4.multiply(result, this.view, model);
 		mat4.multiply(result, this.projection, result);
