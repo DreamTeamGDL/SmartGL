@@ -62,7 +62,7 @@ export default abstract class AbstractPolygon implements IDrawable {
 			let angle = base + i * (2 * Math.PI / vertexCount);
 			const x = radius * Math.cos(angle) + this.center.x;
 			const y = radius * Math.sin(angle) + this.center.y;
-			this.points.push(new Point4D(x, y));
+			this.points.push(new Point4D(x, y, this.center.z));
 		}
 	}
 
@@ -97,12 +97,16 @@ export default abstract class AbstractPolygon implements IDrawable {
 		this.angle = angle;
 	}
 
-	public translate(x: number, y: number, moveTo: boolean = false) {
+	public translate(x: number, y: number, z: number = 0, moveTo: boolean = false) {
 		if (moveTo) this.translate(-this.center.x, -this.center.y);
 		const matrix = mat4.create();
-		mat4.translate(matrix, matrix, [x, y, 0]);
+		mat4.translate(matrix, matrix, [x, y, z]);
 		this.transformPoints(matrix);
-		this.center = new Point4D(this.center.x + x, this.center.y + y);
+		this.center = new Point4D(
+			this.center.x + x,
+			this.center.y + y,
+			this.center.z + z
+		);
 		console.log(this.center);
 	}
 
