@@ -107,7 +107,6 @@ export default abstract class AbstractPolygon implements IDrawable {
 			this.center.y + y,
 			this.center.z + z
 		);
-		console.log(this.center);
 	}
 
 	private transformPoints(matrix: mat4) {
