@@ -7,5 +7,5 @@ export default interface IDrawable {
     count: number;
     scale(x: number, y: number): void;
     rotate(angle: number): void;
-    translate(x: number, y: number): void;
+    translate(x: number, y: number, z: number, moveTo: boolean): void;
 }
